@@ -4,13 +4,13 @@ addpath functions;
 %%
 % radmatris
 y1=vgg_get_homg([
- 1123 22 343 455;
+ 1100 220 340 455;
  145 245 3456 4345;
 ]);
 
 y2=vgg_get_homg([
- 20 40 60 90;
- 30 30 70 70;
+ 1100 220 340 455;
+ 145 245 3456 4345;
 ]);
 
 A = [];
@@ -33,3 +33,16 @@ z = [z_hat; 1];
 H1=reshape(z, 3, 3);
 
 disp(vgg_get_nonhomg(H1*y1));
+
+%% Task 8
+diff = vgg_get_nonhomg(H1 * y1) - vgg_get_nonhomg(y2);
+%diff = vgg_get_nonhomg(H1\y2) - vgg_get_nonhomg(y1);
+%no_homo_diff = vgg_get_nonhomg(diff);
+%disp(diff);
+normal = [];
+for k=1:length(diff)
+    normal = [normal norm(diff(:, k))];
+end
+%normal = norm(diff(:, 1));
+distance=[diff; normal];
+disp(distance);
