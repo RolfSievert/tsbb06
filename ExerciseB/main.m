@@ -36,7 +36,7 @@ disp(norm(q)); % Should be 1
 x0 = randn(3, 1);
 p = [0; x0];
 
-% Question 5
+% Question 5 TODO
 disp(R1*x0);
 disp(q.*p.*conj(q));
 
@@ -44,3 +44,33 @@ disp(q.*p.*conj(q));
 % Question 6
 disp(liu_R_from_q(q));
 disp(R1);
+
+%%
+N = 9;
+x1 = 2*rand(3, N) - 1;
+%t = 2*rand(3, 1) - 1;
+t = zeros(3, 1);
+n = 2*rand(3, 1) - 1;
+n = n/norm(n);
+a = 2*pi*rand(1, 1);
+R = liu_rodrigues(n, a);
+
+x2 = R*x1+t*ones(1, N);
+s = 0.0;
+x1n = x1 + s*randn(3, N);
+x2n = x2 + s*randn(3, N);
+
+% 5.2
+[Rest test] = est_rigid_transform(x1n, x2n);
+% Question 7
+disp(inv(Rest));
+disp(Rest');
+disp(det(Rest));
+disp(R);
+
+%% Question 8
+x2e = Rest*x1n;%+ test*ones(1, N);
+err = norm(x2e- x2n, 'fro');
+disp(x2e);
+disp(x2n);
+disp(err);
