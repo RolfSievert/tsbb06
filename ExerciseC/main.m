@@ -27,11 +27,18 @@ h0 = conv(s, f0, 'same');
 h1 = conv(s, f1, 'same');
 h2 = conv(s, f2, 'same');
 
+figure(13);
+subplot(3, 1, 1); plot(h0, '-o');
+subplot(3, 1, 2); plot(h1, '-o');
+subplot(3, 1, 3); plot(h2, '-o');
+
 G0 = diag(a);
 B = [b0 b1 b2];
 G = B'*G0*B;
 
-% Question 1: No? Not normalized
+% Question 1: No!
+disp('Question 1:');
+disp(G'*G);
 
 %%
 c = inv(G)*[h0; h1; h2];
@@ -40,7 +47,10 @@ subplot(3, 1, 1); plot(c(1,:));
 subplot(3, 1, 2); plot(c(2,:));
 subplot(3, 1, 3); plot(c(3,:));
 
-% Question 2: Yes? The derevatives look good.
+% Question 2: Yes? They look like the derivitives of sin.
+
+%% Prep 3
+cp = inv(G);
 
 %%
 figure(5);
@@ -54,65 +64,64 @@ subplot(3, 1, 3); plot(diffsig);
 % Question 3: Very similiar. 
 
 %%
-cert = double(rand(1, 101)>0.2);
+cert = double(rand(1, 101)>0.3);
 scert = s.*cert;
 figure(6); plot(scert);
 
-% Question 4: It is partially zero. scert is isch 80 percent ones, rest
-% being zeros. 
+h0c = conv(scert, f0, 'same');
+h1c = conv(scert, f1, 'same');
+h2c = conv(scert, f2, 'same');
+
+figure(14);
+subplot(3, 1, 1); plot(h0c, '-o');
+subplot(3, 1, 2); plot(h1c, '-o');
+subplot(3, 1, 3); plot(h2c, '-o');
+
+cc = inv(G)*[h0c; h1c; h2c];
+figure(15);
+subplot(3, 1, 1); plot(cc(1,:));
+subplot(3, 1, 2); plot(cc(2,:));
+subplot(3, 1, 3); plot(cc(3,:));
+
+figure(16);
+localsigc=s(60-3:60+3);
+reconsigc=(B*cc(:,60))';
+diffsigc=localsigc-reconsigc;
+subplot(3, 1, 1); plot(localsigc);
+subplot(3, 1, 2); plot(reconsigc);
+subplot(3, 1, 3); plot(diffsigc);
+
+% Question 4
+
 
 %%
 h0 = conv(scert, f0, 'same');
 h1 = conv(scert, f1, 'same');
 
+figure(17);
+subplot(2, 1, 1); plot(h0);
+subplot(2, 1, 2); plot(h1);
+
 % Fill in these!!!
-G11 = conv(); 
-G12 = conv();
-G13 = conv();
+G11 = conv(cert, f0, 'same'); 
+G12 = conv(cert, f1, 'same');
+G22 = conv(cert, f0, 'same');
 
 detG = G11.*G22-G12.^2;
-c0 = (G22.*ho-G12.*h1)./detG;
-c1 = (-G12.*ho+G11.*h1)./detG; figure(7);
-subplot(2, 1, 1); plot(c0);
-subplot(2, 1, 2); plot(c1);
+c0 = (G22.*h0-G12.*h1)./detG;
+c1 = (-G12.*h0+G11.*h1)./detG;
+
+figure(7);
+subplot(2, 2, 1); plot(c0);
+subplot(2, 2, 3); plot(c1);
+subplot(2, 2, 2); plot(cc(1,:));
+subplot(2, 2, 4); plot(cc(2,:));
 
 % Question 5: No idea.
 
-% Question 6: No idea
+% Question 6: Smooooth.
 
 % Question 7: No idea.
 
 % Question 8: No idea.
 
-%% Normalized averaging of images
-im = double(imread('Scalespace0.png'));
-figure(8); colormap(gray); imagesc(im);
-
-cert = double(rand(size(im)) > 0.6); imcert = im.*cert;
-figure(9); colormap(gray); imagesc(imcert);
-
-x = ones(7, 1)*(-3:3);
-y = x';
-a = exp(-(x.^2+y.^2)/4);
-figure(10); mesh(a);
-
-imlp = conv2(imcert, a, 'same');
-figure(11); colormap(gray); imagesc(imlp);
-
-% Question 9: Blah.
-
-%%
-
-G = 0; % <---- Fill in this one!!
-c = imlp./G;
-figure(12);colormap(gray);imagesc(c);
-
-% Question 10: Bleh
-
-% Question 11
-
-% Question 12
-
-% Question 13
-
-% Question 14
