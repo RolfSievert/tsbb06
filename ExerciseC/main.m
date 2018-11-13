@@ -1,3 +1,6 @@
+
+close all;
+
 k = 0:1:100;
 s = sin(k/10);
 figure(1);plot(s);
@@ -41,6 +44,7 @@ disp('Question 1:');
 disp(G'*G);
 
 %%
+
 c = inv(G)*[h0; h1; h2];
 figure(4);
 subplot(3, 1, 1); plot(c(1,:));
@@ -53,6 +57,7 @@ subplot(3, 1, 3); plot(c(3,:));
 cp = inv(G);
 
 %%
+
 figure(5);
 localsig=s(60-3:60+3);
 reconsig=(B*c(:,60))';
@@ -64,6 +69,7 @@ subplot(3, 1, 3); plot(diffsig);
 % Question 3: Very similiar. 
 
 %%
+
 cert = double(rand(1, 101)>0.3);
 scert = s.*cert;
 figure(6); plot(scert);
@@ -103,9 +109,9 @@ subplot(2, 1, 1); plot(h0);
 subplot(2, 1, 2); plot(h1);
 
 % Fill in these!!!
-G11 = conv(cert, f0, 'same'); 
-G12 = conv(cert, f1, 'same');
-G22 = conv(cert, f0, 'same');
+G11 = conv(cert, flip(b0.*a.*b0), 'same'); 
+G12 = conv(cert, flip(b0.*a.*b1), 'same');
+G22 = conv(cert, flip(b1.*a.*b1), 'same');
 
 detG = G11.*G22-G12.^2;
 c0 = (G22.*h0-G12.*h1)./detG;
@@ -124,4 +130,6 @@ subplot(2, 2, 4); plot(cc(2,:));
 % Question 7: No idea.
 
 % Question 8: No idea.
+
+
 
