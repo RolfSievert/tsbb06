@@ -3,7 +3,7 @@
 im = double(imread('Scalespace0.png'));
 figure(8); colormap(gray); imagesc(im);
 
-cert = double(rand(size(im)) > 0.97); imcert = im.*cert;
+cert = double(rand(size(im)) > 0.90); imcert = im.*cert;
 figure(9); colormap(gray); imagesc(imcert);
 
 x = ones(13, 1)*(-6:6);
