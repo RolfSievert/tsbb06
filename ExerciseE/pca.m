@@ -1,6 +1,8 @@
 load A
 size(A)
 
+%%
+
 [PC S] = svd(A);                  %Compute SVD of A
 PM = diag(S);                     %magnitudes are given by the
                                   %singular values
