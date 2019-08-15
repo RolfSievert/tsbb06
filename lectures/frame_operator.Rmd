@@ -1,0 +1,38 @@
+---
+title: Frames
+date: 2018-11-29
+---
+
+
+# Frame operator
+Frame operator defined as
+
+>$F*v = \sum\nolimits_{k}<v\mid b_k>*b_k$
+
+* The set of $b_k$ may be finite
+* Continue list...
+
+Follows from the definition
+
+>$<F*u\mid v> = <u\mid F*v>, u,v\in V$
+
+**Dual frame**
+
+>$b^~ ... $
+
+# Bases and frames
+
+If ${b_k}$ does not span V, there exists a $v\in V$ that is orthogonal to all $b_k$
+
+>$\sum\nolimits_{k} \mid<v\mid b_k>\mid^2 = 0$
+
+# Tight frames
+
+# Matrix formulation
+
+**Frame operator**
+
+>$F = B B^{*}G_0$
+
+# Reconstructing coefficients
+>$v = B c$, $B$ is frame, $c$ reconstructing coefficients
